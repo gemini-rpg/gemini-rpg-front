@@ -22,6 +22,8 @@
     background: rgb(92,82,127);
     background: linear-gradient(130deg, rgba(92,82,127,1) 0%, rgba(38,28,44,1) 100%);
     padding: 50px 0;
+    position: relative;
+    z-index: 1;
 }
 
 .imgs_container {
@@ -77,27 +79,43 @@ h1 {
 
 .main-botao {
     height: 60px;
-    aspect-ratio: 5 / 1;
-    background: white;
-    border-radius: 25px
+    width: 350px;
+    background: var(--roxo-escuro);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--runa-font);
+    font-size: 32px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
 }
 
 .main-botao::before {
     position: absolute;
     content: "";
-    height: inherit;
-    aspect-ratio: inherit;
+    height: 60px;
+    width: 350px;
     background: tomato;
     border-radius: inherit;
     z-index: -1;
     transition: 0.3s;
-    animation: borda-botao 2s linear infinite;
+    animation: botao-borda 10s linear infinite;
 }
 
-.main-botao:before:hover {
-    height: calc(inherit + 5px);
-    aspect-ratio: calc(inherit + 5px);
+.main-botao:hover {
+    color: white;
+}
 
+.main-botao:hover::before {
+    transform: scale(1.02, 1.15);
+}
+
+@keyframes botao-borda {
+    50% {
+        filter: hue-rotate(360deg);
+    }
 }
 
 
