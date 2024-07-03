@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiRpgFrontEnd", "AiRpgFrontEnd.csproj", "{955A3F7F-4D5A-4669-A301-79DBE9D6369D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{955A3F7F-4D5A-4669-A301-79DBE9D6369D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955A3F7F-4D5A-4669-A301-79DBE9D6369D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955A3F7F-4D5A-4669-A301-79DBE9D6369D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955A3F7F-4D5A-4669-A301-79DBE9D6369D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75F2A8D3-B3AA-4C9C-BBA0-F0514A9EACC6}
+	EndGlobalSection
+EndGlobal

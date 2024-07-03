@@ -1,0 +1,155 @@
+﻿@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.fade-in.show {
+    opacity: 1;
+}
+
+.main-container {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(92,82,127);
+    background: linear-gradient(130deg, rgba(92,82,127,1) 0%, rgba(38,28,44,1) 100%);
+    padding: 50px 0;
+}
+
+.imgs_container {
+    height: 50%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: relative;
+}
+
+h1 {
+    color: white;
+    font-size: 2rem;
+    font-family: var(--texto);
+}
+
+.mago {
+    width: 20%;
+    position: absolute;
+    animation: pulse 4s infinite;
+    display: none;
+}
+
+.elemento {
+    width: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    margin: auto;
+}
+
+.ar {
+    animation: translacao_ar 5s linear infinite;
+}
+
+.agua {
+    animation: translacao_agua 5s linear infinite;
+}
+
+.fogo {
+    animation: translacao_fogo 5s linear infinite;
+}
+
+.terra {
+    animation: translacao_terra 5s linear infinite;
+}
+
+
+.main-botao {
+    height: 60px;
+    aspect-ratio: 5 / 1;
+    background: white;
+    border-radius: 25px
+}
+
+.main-botao::before {
+    position: absolute;
+    content: "";
+    height: inherit;
+    aspect-ratio: inherit;
+    background: tomato;
+    border-radius: inherit;
+    z-index: -1;
+    transition: 0.3s;
+    animation: borda-botao 2s linear infinite;
+}
+
+.main-botao:before:hover {
+    height: calc(inherit + 5px);
+    aspect-ratio: calc(inherit + 5px);
+
+}
+
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+}
+
+@keyframes translacao_ar {
+    0% {
+        transform: rotate(0deg)translate(0, -250px) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg)translate(0, -250px) rotate(-360deg);
+    }
+}
+
+@keyframes translacao_agua {
+    0% {
+        transform: rotate(0deg)translate(-250px, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg)translate(-250px, 0) rotate(-360deg);
+    }
+}
+
+
+@keyframes translacao_terra {
+    0% {
+        transform: rotate(0deg)translate(0, 250px) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg)translate(0, 250px) rotate(-360deg);
+    }
+}
+
+
+@keyframes translacao_fogo {
+    0% {
+        transform: rotate(0deg)translate(250px, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg)translate(250px, 0) rotate(-360deg);
+    }
+}
+

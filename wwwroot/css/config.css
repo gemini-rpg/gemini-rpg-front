@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --roxo-escuro: #261C2C;
+    --roxo: #3E2C41;
+    --violeta: #5C527F;
+    --azul: #5C7096;
+    --runa-font: 'MedievalSharp', sans-serif;
+    --texto: 'Megrim', sans-serif;
+}

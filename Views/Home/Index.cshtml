@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "AI RPG";
+}
+
+<link href="~/css/home.css" rel="stylesheet" type="text/css" />
+
+
+<section class="main-container " id="container">
+	<h1>AI-RPG</h1>
+	<div class="imgs_container fade-in" id="imgs_container">
+		<img class="elemento agua" src="~/imgs/testes/1x/agua_forma.png">
+		<img class="elemento fogo" src="~/imgs/testes/1x/fogo_forma.png">
+		<img class="elemento terra" src="~/imgs/testes/1x/terra_forma.png">
+		<img class="elemento ar" src="~/imgs/testes/1x/ar_forma.png">
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+		<img class="mago" id="mago" src="./imgs/mage.png" alt="A mage illustration">
+	</div>
+	<div class="main-botao">
+	</div>
+</section>
+
+<script>
+	$("#container").mousemove(function (e) {
+		parallaxIt(e, ".elemento", -25);
+		parallaxIt(e, ".imgs_container", -7);
+	});
+
+	function parallaxIt(e, target, movement) {
+		var $this = $("#container");
+		var relX = e.pageX - $this.offset().left;
+		var relY = e.pageY - $this.offset().top;
+
+		TweenMax.to(target, 1, {
+			x: (relX - $this.width() / 2) / $this.width() * movement,
+			y: (relY - $this.height() / 2) / $this.height() * movement
+		});
+	}
+	const myComponent = document.getElementById('mago');
+
+	// Use setTimeout to invoke a function after a delay (e.g., 2000 milliseconds)
+	setTimeout(() => {
+		document.querySelector('.fade-in').classList.add('show');
+		// Set the element's display property to 'block' or 'inline' (or any other desired value)
+		myComponent.style.display = 'block';
+	}, 2000);
+</script>
