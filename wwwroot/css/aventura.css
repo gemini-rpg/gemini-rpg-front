@@ -1,5 +1,4 @@
 ﻿.main-container {
-    height: 100svh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,4 +8,99 @@
     padding: 50px 0;
     position: relative;
     z-index: 1;
+}
+
+.titulo {
+    width: 1em;
+    position: absolute;
+    left: -999em;
+    overflow: hidden;
+}
+
+h2 {
+    font-family: 'Vollkorn SC', serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: white;
+
+    margin-bottom: 100px
+}
+
+
+
+.main-container .nova_historia .card_principal {
+    font-family: 'Vollkorn SC', serif;
+    color: black;
+    padding: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align:justify;
+    line-height:inherit;
+
+
+    display:flex;
+
+    width: 1330px;
+    height: 555px;
+    background-color: white;
+    border-radius: 60px 0px 60px 60px;
+}
+
+    .main-container .nova_historia .card_principal .icone_audio {
+        align-self: end;
+    }
+
+
+.main-container .nova_historia .card_principal {
+    margin-bottom: 100px;
+}
+
+
+.main-container .nova_historia .opcoes h3 {
+    font-family: 'Vollkorn SC', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+}
+
+.main-container .nova_historia .opcoes{
+    display:flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.main-container .nova_historia .opcao {
+    display: flex;
+    align-items: center;
+}
+/*Estilo do input*/
+label {
+    font-family: 'Vollkorn SC', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+label,
+small {
+    /*margin-top: 0.1em;*/
+}
+
+input[type="radio"] {
+    width: 50px;
+    height: 50px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+#accent {
+    accent-color: rgb(92,82,127);
+}
+
+/*/*/
+
+
+.main-container .nova_historia .opcoes .opcao {
+    display: flex;
+    flex-direction: row;
 }

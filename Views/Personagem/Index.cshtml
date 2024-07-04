@@ -11,38 +11,44 @@
 
     <h2>Crie seu personagem</h2>
 
-    <div class="card_personagens">
+    <form asp-action="Index" asp-controller="Aventura">
+        <div class="card_personagens">
 
-        <div class="card card_arqueiro">
-            <img src="~/imgs/ilustracao_arqueiro.png"></img>
-            <span>arqueiro</span>
-            <input type="radio" name="name" value="" />
+            <div class="card card_arqueiro">
+                <img src="~/imgs/ilustracao_arqueiro.png"></img>
+                <span>arqueiro</span>
+                <input type="radio" name="name" value="" />
+            </div>
+
+            <div class="card card_guerreiro">
+                <img src="~/imgs/guerreiro_ilustracao.png"></img>
+                <span>guerreiro</span>
+                <input type="radio" name="name" value="" />
+            </div>
+
+            <div class="card card_paladino">
+                <img src="~/imgs/paladino_ilustracao.png"></img>
+                <span>paladino</span>
+                <input type="radio" name="name" value="" />
+            </div>
+
+            <div class="card card_mago">
+                <img src="~/imgs/mago_ilustracao.png"></img>
+                <span>mago</span>
+                <input type="radio" name="name" value="" />
+            </div>
+
         </div>
+        <input class="input_nome" type="text" class=" shadow-none" id="Nome"
+               placeholder="Digite seu nome" required>
 
-        <div class="card card_guerreiro">
-            <img src="~/imgs/guerreiro_ilustracao.png"></img>
-            <span>guerreiro</span>
-            <input type="radio" name="name" value="" />
+
+
+        <div class="botao_continuar">
+            <button type="submit" class="teste">Começar nova história</button>
         </div>
+    </form>
 
-        <div class="card card_paladino">
-            <img src="~/imgs/paladino_ilustracao.png"></img>
-            <span>paladino</span>
-            <input type="radio" name="name" value="" />
-        </div>
-
-        <div class="card card_mago">
-            <img src="~/imgs/mago_ilustracao.png"></img>
-            <span>mago</span>
-            <input type="radio" name="name" value="" />
-        </div>
-
-    </div>
-    <input class="input_nome" type="text" class=" shadow-none" id="Nome"
-           placeholder="Digite seu nome" required>
-
-    <div class="botao_continuar">
-        <button type="submit" class="teste">Começar nova história</button>
-    </div>
+    
 
 </section>
