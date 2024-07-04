@@ -1,0 +1,12 @@
+﻿.main-container {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(92,82,127);
+    background: linear-gradient(130deg, rgba(92,82,127,1) 0%, rgba(38,28,44,1) 100%);
+    padding: 50px 0;
+    position: relative;
+    z-index: 1;
+}
