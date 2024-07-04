@@ -25,25 +25,35 @@ h2 {
     color: white;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 0;
+    position: relative;
+    z-index: 1;
+    gap:90px
+}
 
-    .main-container .card_personagens{
+    .main-container  .card_personagens{
         display:flex;
         gap:40px;
         justify-content: space-between;
         cursor: pointer;
     }
 
-        .main-container .card_personagens input{
-            display:none;
+        .main-container  .card_personagens input {
+            display: none;
         }
 
-        .main-container .card_arqueiro,
-        .main-container .card_guerreiro {
-            border-radius: 60px 0px 60px 60px;
-        }
+.main-container .card_personagens .card_arqueiro,
+.main-container .card_personagens .card_guerreiro {
+    border-radius: 0px 60px 60px 60px;
+}
 
-.main-container .card_paladino,
-.main-container .card_mago {
+.main-container .card_personagens .card_paladino,
+.main-container .card_personagens .card_mago {
     border-radius: 60px 0px 60px 60px;
 }
 
