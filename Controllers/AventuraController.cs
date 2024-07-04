@@ -23,26 +23,27 @@ namespace AiRpgFrontEnd.Controllers
 
         [HttpPost]
         public IActionResult Index(string nome)
-
         {
+
             ViewBag.Nome = nome;
             return View();
         }
 
         [HttpPost]
-        public async Task<string> CriarHistoria(PersonagemViewModel model)
+        public async Task<PartialViewResult> CriarHistoria(PersonagemViewModel model)
         {
             try
             {
                 string data = JsonConvert.SerializeObject(model);
-                StringContent conteudo = new StringContent(data, Encoding.UTF8, "application/json");
+                StringContent conteudo = new(data, Encoding.UTF8, "application/json");
            
 
-                HttpResponseMessage resposta = await _client.PostAsync(apiUri + "/create_session", conteudo);
+                HttpResponseMessage resposta = await _client.PostAsync(_client.BaseAddress + "/create_session", conteudo);
 
                 if (resposta.IsSuccessStatusCode)
                 {
-                    return "";
+                    ViewBag.Historia = resposta;
+                    return PartialView("Historia/Default");
                 }
 
             }
@@ -51,9 +52,9 @@ namespace AiRpgFrontEnd.Controllers
                 TempData["MensagemErro"] = $"Erro";
                 
             }
-           
 
-            return "";
+
+            return PartialView();
         }
     }
 }
