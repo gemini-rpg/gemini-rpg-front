@@ -4,8 +4,10 @@ namespace AiRpgFrontEnd.Controllers
 {
     public class AventuraController : Controller
     {
-        public IActionResult Index()
+        [HttpPost]
+        public IActionResult Index(string nome)
         {
+            ViewBag.Nome = nome;
             return View();
         }
     }
