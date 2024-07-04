@@ -4,6 +4,7 @@
 
 <link href="~/css/personagem.css" rel="stylesheet" type="text/css" />
 
+@model AiRpgFrontEnd.Models.PersonagemViewModel
 
 <section class="main-container " id="container">
 
@@ -11,44 +12,60 @@
 
     <h2>Crie seu personagem</h2>
 
-    <form asp-action="Index" asp-controller="Aventura">
+    <form asp-action="CriarHistoria" asp-controller="Aventura" method="POST">
         <div class="card_personagens">
-
-            <div class="card card_arqueiro">
-                <img src="~/imgs/ilustracao_arqueiro.png"></img>
-                <span>arqueiro</span>
-                <input type="radio" name="name" value="" />
+            <div class="card card_arqueiro" onclick="inputSelecionado('Arqueiro')">
+                <img src="~/imgs/ilustracao_arqueiro.png" alt="Arqueiro">
+                <span>Arqueiro</span>
+                <input type="radio" name="Classe" id="arqueiro" value="Arqueiro" asp-for="Classe" />
             </div>
 
-            <div class="card card_guerreiro">
-                <img src="~/imgs/guerreiro_ilustracao.png"></img>
-                <span>guerreiro</span>
-                <input type="radio" name="name" value="" />
+            <div class="card card_guerreiro" onclick="inputSelecionado('Guerreiro')">
+                <img src="~/imgs/guerreiro_ilustracao.png" alt="Guerreiro">
+                <span>Guerreiro</span>
+                <input type="radio" name="Classe" id="guerreiro" value="Guerreiro" asp-for="Classe" />
             </div>
 
-            <div class="card card_paladino">
-                <img src="~/imgs/paladino_ilustracao.png"></img>
-                <span>paladino</span>
-                <input type="radio" name="name" value="" />
+            <div class="card card_ladino" onclick="inputSelecionado('Ladino')">
+                <img src="~/imgs/paladino_ilustracao.png" alt="Paladino">
+                <span>Ladino</span>
+                <input type="radio" name="Classe" id="ladino" value="ladino" asp-for="Classe" />
             </div>
 
-            <div class="card card_mago">
-                <img src="~/imgs/mago_ilustracao.png"></img>
-                <span>mago</span>
-                <input type="radio" name="name" value="" />
+            <div class="card card_mago" onclick="inputSelecionado('Mago')">
+                <img src="~/imgs/mago_ilustracao.png" alt="Mago">
+                <span>Mago</span>
+                <input type="radio" name="Classe" id="mago" value="Mago" asp-for="Classe" />
             </div>
+        </div>
 
-        </div> 
-        <input class="input_nome shadow-none" type="text" id="nome" value="nome" name="nome"
+        <input class="input_nome shadow-none" type="text" id="nome" value="" asp-for="Nome" name="nome"
                placeholder="Digite seu nome" required>
-
-
 
         <div class="botao_continuar">
             <button type="submit" class="teste">Começar nova história</button>
         </div>
     </form>
-
-    
-
 </section>
+
+<script>
+    function inputSelecionado(valor) {
+        // Selecionar o input correspondente ao valor
+        const input = document.getElementById(valor.toLowerCase());
+        if (input) {
+            input.checked = true;
+            
+
+            const divsPersonagens = document.querySelectorAll('.card');
+            divsPersonagens.forEach(div => {
+                div.classList.remove('selected')
+            });
+
+            const divsSelecionada = document.querySelector('.card_' + valor.toLowerCase());
+            if (divsSelecionada) {
+                divsSelecionada.classList.add('selected');
+            }
+            console.log('Selecionado:', valor);
+        }
+    }
+</script>

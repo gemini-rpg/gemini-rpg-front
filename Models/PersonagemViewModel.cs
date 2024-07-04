@@ -2,7 +2,7 @@
 {
 	public class PersonagemViewModel
 	{
-		public string Name { get; set; }
+		public string Nome { get; set; }
 
 		public string Classe { get; set; }
 	}

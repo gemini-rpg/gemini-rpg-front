@@ -11,12 +11,30 @@
     z-index: 1;
 }
 
-.titulo {
-    width: 1em;
-    position: absolute;
-    left: -999em;
-    overflow: hidden;
+.selected {
+    border: 5px  solid white;
+    background: tomato;
+    border-radius: inherit;
+    z-index: -1;
+    transition: 0.3s;
+    animation: botao-borda 10s linear infinite;
 }
+    .selected:hover {
+        color:white;
+    }
+
+    .selected:hover::before {
+        transform: scale(1.02, 1.15);
+    }
+
+
+
+    .titulo {
+        width: 1em;
+        position: absolute;
+        left: -999em;
+        overflow: hidden;
+    }
 
 h2 {
     font-family: 'Vollkorn SC', serif;
@@ -52,7 +70,7 @@ form {
     border-radius: 0px 60px 60px 60px;
 }
 
-.main-container .card_personagens .card_paladino,
+.main-container .card_personagens .card_ladino,
 .main-container .card_personagens .card_mago {
     border-radius: 60px 0px 60px 60px;
 }
@@ -135,5 +153,4 @@ form {
 @keyframes botao-borda {
     50% {
         filter: hue-rotate(360deg);
-    }
-}
+    }

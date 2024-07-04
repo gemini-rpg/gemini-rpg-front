@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AiRpgFrontEnd.Models;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace AiRpgFrontEnd.Controllers
 {
@@ -26,9 +30,28 @@ namespace AiRpgFrontEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<string> CriarHistoria()
+        public async Task<string> CriarHistoria(PersonagemViewModel model)
         {
-            HttpResponseMessage resposta = await _client.GetAsync(apiUri + "/create_session");
+            try
+            {
+                string data = JsonConvert.SerializeObject(model);
+                StringContent conteudo = new StringContent(data, Encoding.UTF8, "application/json");
+           
+
+                HttpResponseMessage resposta = await _client.PostAsync(apiUri + "/create_session", conteudo);
+
+                if (resposta.IsSuccessStatusCode)
+                {
+                    return "";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TempData["MensagemErro"] = $"Erro";
+                
+            }
+           
 
             return "";
         }
