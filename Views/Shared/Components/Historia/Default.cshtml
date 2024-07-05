@@ -9,7 +9,10 @@
         <p>
             @ViewBag.Historia
         </p>
-        <img class="icone_audio" src="~/imgs/audio.png"></img>
+        <form asp-action="PostSpeech" asp-controller="Aventura">
+            <button type="submit"><img class="icone_audio" src="~/imgs/audio.png"></img></button>
+        </form>
+        
     </div>
 
     <div class="opcoes">
