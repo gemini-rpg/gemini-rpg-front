@@ -1,6 +1,8 @@
 ﻿using AiRpgFrontEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -21,7 +23,6 @@ namespace AiRpgFrontEnd.Controllers
         }
 
 
-        [HttpPost]
         public IActionResult Index(string nome)
         {
 
@@ -30,31 +31,27 @@ namespace AiRpgFrontEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<PartialViewResult> CriarHistoria(PersonagemViewModel model)
+        public async Task<IActionResult> CriarHistoria(PersonagemViewModel model)
         {
             try
             {
                 string data = JsonConvert.SerializeObject(model);
                 StringContent conteudo = new(data, Encoding.UTF8, "application/json");
-           
-
                 HttpResponseMessage resposta = await _client.PostAsync(_client.BaseAddress + "/create_session", conteudo);
-
                 if (resposta.IsSuccessStatusCode)
                 {
-                    ViewBag.Historia = resposta;
-                    return PartialView("Historia/Default");
+                    string result = resposta.Content.ReadAsStringAsync().Result;
+                    HistoriaViewModel historia = JsonConvert.DeserializeObject<HistoriaViewModel>(result)!;
+                    ViewBag.Historia = historia.Historia;
+                    ViewBag.Nome = model.nome;
+                    return View("Index");
                 }
-
             }
             catch (Exception ex)
             {
                 TempData["MensagemErro"] = $"Erro";
-                
             }
-
-
-            return PartialView();
+            return View("Index");
         }
     }
 }

@@ -1,3 +1,10 @@
+@using AiRpgFrontEnd.Models
+@model PersonagemViewModel
+
+@{
+    PersonagemViewModel personagem = Model;
+}
+
 @{
     ViewData["Title"] = "Embarque na sua aventura";
 }
@@ -12,5 +19,5 @@
     <h2>@ViewBag.Nome, embarque na sua aventura</h2>
 
     @await Component.InvokeAsync("Historia")
-
 </section>
+
