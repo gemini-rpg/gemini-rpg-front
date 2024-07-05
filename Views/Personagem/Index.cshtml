@@ -12,30 +12,32 @@
 
     <h2>Crie seu personagem</h2>
 
+    <a href="/Home" class="seta_voltar"><img src="~/imgs/seta-voltar.png" alt="Voltar"></a>
+
     <form asp-action="CriarHistoria" asp-controller="Aventura" method="POST">
         <div class="card_personagens">
             <div class="card card_arqueiro" onclick="inputSelecionado('Arqueiro')">
                 <img src="~/imgs/ilustracao_arqueiro.png" alt="Arqueiro">
                 <span>Arqueiro</span>
-                <input type="radio" name="Classe" id="arqueiro" value="Arqueiro" asp-for="Classe" />
+                <input type="radio" name="Classe" id="arqueiro" value="Arqueiro" asp-for="Classe" required />
             </div>
 
             <div class="card card_guerreiro" onclick="inputSelecionado('Guerreiro')">
                 <img src="~/imgs/guerreiro_ilustracao.png" alt="Guerreiro">
                 <span>Guerreiro</span>
-                <input type="radio" name="Classe" id="guerreiro" value="Guerreiro" asp-for="Classe" />
+                <input type="radio" name="Classe" id="guerreiro" value="Guerreiro" asp-for="Classe" required />
             </div>
 
             <div class="card card_ladino" onclick="inputSelecionado('Ladino')">
                 <img src="~/imgs/paladino_ilustracao.png" alt="Paladino">
                 <span>Ladino</span>
-                <input type="radio" name="Classe" id="ladino" value="ladino" asp-for="Classe" />
+                <input type="radio" name="Classe" id="ladino" value="ladino" asp-for="Classe" required />
             </div>
 
             <div class="card card_mago" onclick="inputSelecionado('Mago')">
                 <img src="~/imgs/mago_ilustracao.png" alt="Mago">
                 <span>Mago</span>
-                <input type="radio" name="Classe" id="mago" value="Mago" asp-for="Classe" />
+                <input type="radio" name="Classe" id="mago" value="Mago" asp-for="Classe" required />
             </div>
         </div>
 

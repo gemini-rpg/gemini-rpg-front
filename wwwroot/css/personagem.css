@@ -6,9 +6,15 @@
     justify-content: space-between;
     background: rgb(92,82,127);
     background: linear-gradient(130deg, rgba(92,82,127,1) 0%, rgba(38,28,44,1) 100%);
-    padding: 50px 0;
+    /*padding: 50px 0;*/
     position: relative;
     z-index: 1;
+    padding: 40px 217px;
+}
+
+
+.seta_voltar{
+    align-self: start;
 }
 
 .selected {
@@ -103,7 +109,7 @@ form {
 
 .botao_continuar{
     align-self:flex-end;
-    margin-right:110px;
+    /*margin-right:110px;*/
 }
 
 .teste {
@@ -131,7 +137,7 @@ form {
     z-index: -1;
     transition: 0.3s;
     animation: botao-borda 10s linear infinite;
-    right: 110px;
+    right: 0px;
     bottom: 50px;
     border-radius: inherit;
 }
@@ -153,4 +159,5 @@ form {
 @keyframes botao-borda {
     50% {
         filter: hue-rotate(360deg);
-    }
+    }
+}
