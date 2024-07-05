@@ -16,7 +16,13 @@
 
     <h1 class="titulo">Pagina de início de nova história</h1>
 
-    <h2>@ViewBag.Nome, embarque na sua aventura</h2>
+    <a href="/Home" class="seta_voltar"><img src="~/imgs/seta-voltar.png" alt="Voltar"></a>
+        
+        <h2>@ViewBag.Nome, embarque na sua aventura</h2>
+
+        
+ 
+   
 
     @await Component.InvokeAsync("Historia")
 </section>
