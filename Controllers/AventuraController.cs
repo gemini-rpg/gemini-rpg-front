@@ -80,7 +80,7 @@ namespace AiRpgFrontEnd.Controllers
                     if (speechSynthesisResult.Reason == ResultReason.SynthesizingAudioCompleted)
                     {
                         // Se a síntese foi completada com sucesso, retornar um OkResult
-                        return View();
+                       return Ok(new { Status = "Completed", Text = text });
                     }
                     else
                     {

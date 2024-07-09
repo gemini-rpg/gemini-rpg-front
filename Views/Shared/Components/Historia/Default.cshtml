@@ -4,39 +4,79 @@
 
 
 <div class="nova_historia">
-
     <div class="card_principal">
-        <p>
-            
+        <p id="historiaText">
             @ViewBag.Historia
         </p>
-        <form class="icone_audio" asp-action="PostSpeech" asp-controller="Aventura">
-            <button class="teste" type="submit"><img src="~/imgs/audio.png"></img></button>
+        <form id="audioForm" class="icone_audio" asp-action="PostSpeech" asp-controller="Aventura">
+            <button id="startButton" class="teste" type="submit"><img src="~/imgs/audio.png"></button>
         </form>
-        
-    </div>
+@*         <p id="statusMessage"></p>
+ *@    </div>
 
     <div class="opcoes">
         <h3>Selecione uma opção para continuar:</h3>
 
-        <div class="opcoes">
-
-            <div class="opcao">
-                <input type="radio" id="accent">
-                <label>Seguir o caminho pela floresta</label>
-            </div>
-
-            <div class="opcao">
-                <input type="radio" id="accent">
-                <label>Explorar o rio</label>
-            </div>
-
-            <div class="opcao">
-                <input type="radio" id="accent">
-                <label>Investigar a cabana</label>
-            </div>
-
+        <div class="opcao">
+            <input type="radio" id="opcao1" name="opcao" value="opcao1">
+            <label for="opcao1">Seguir o caminho pela floresta</label>
         </div>
 
+        <div class="opcao">
+            <input type="radio" id="opcao2" name="opcao" value="opcao2">
+            <label for="opcao2">Explorar o rio</label>
+        </div>
+
+        <div class="opcao">
+            <input type="radio" id="opcao3" name="opcao" value="opcao3">
+            <label for="opcao3">Investigar a cabana</label>
+        </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('audioForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Mostrar mensagem de status
+        document.getElementById('statusMessage').textContent = 'Iniciando síntese de fala...';
+
+        // Enviar requisição AJAX para iniciar a síntese de texto
+        fetch('/Aventura/PostSpeech', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao iniciar síntese de fala');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.Status === 'Completed') {
+                    // Atualizar o texto exibido com o texto sintetizado
+                    document.getElementById('historiaText').textContent = data.Text;
+                    document.getElementById('statusMessage').textContent = 'Síntese de fala concluída';
+                } else {
+                    document.getElementById('statusMessage').textContent = 'Erro na síntese de fala: ' + data.Reason;
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao processar requisição:', error);
+                document.getElementById('statusMessage').textContent = 'Erro ao iniciar síntese de fala';
+            });
+    });
+
+    // Manipular a seleção da opção pelo usuário
+    document.querySelectorAll('input[name="opcao"]').forEach(radio => {
+        radio.addEventListener('change', function () {
+            if (this.checked) {
+                // Aqui você pode fazer algo com a opção selecionada
+                console.log('Opção selecionada:', this.value);
+            }
+        });
+    });
+</script>
