@@ -23,22 +23,21 @@ h2 {
     font-size: 40px;
     font-weight: 600;
     color: white;
-
     margin-bottom: 100px
 }
 
 
 
-.main-container .titulo-historia{
+.main-container .titulo-historia {
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
 }
 
-    .main-container .seta_voltar  {
-        align-self: flex-start;
-    }
+.main-container .seta_voltar {
+    align-self: flex-start;
+}
 
 .main-container .nova_historia .card_principal {
     font-family: 'Vollkorn SC', serif;
@@ -46,26 +45,33 @@ h2 {
     padding: 50px;
     font-size: 20px;
     font-weight: 600;
-    text-align:justify;
-    line-height:inherit;
-
-
-    display:flex;
-
+    text-align: justify;
+    line-height: inherit;
+    display: flex;
+    margin-bottom: 100px;
+    flex-direction: column;
     width: 1330px;
     height: 555px;
     background-color: white;
     border-radius: 60px 0px 60px 60px;
+
+
 }
+
+    .main-container .nova_historia .card_principal p {
+        height: 400px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 15px;
+        position: relative;
+        z-index: 1;
+    }
 
     .main-container .nova_historia .card_principal .icone_audio {
         align-self: end;
+        z-index: 1;
     }
 
-
-.main-container .nova_historia .card_principal {
-    margin-bottom: 100px;
-}
 
 
 .main-container .nova_historia .opcoes h3 {
@@ -75,8 +81,8 @@ h2 {
     color: white;
 }
 
-.main-container .nova_historia .opcoes{
-    display:flex;
+.main-container .nova_historia .opcoes {
+    display: flex;
     flex-direction: column;
     gap: 30px;
 }
@@ -109,11 +115,76 @@ input[type="radio"] {
     accent-color: rgb(92,82,127);
 }
 
+
+.teste {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+
+    background-color: white;
+
+    padding: 10px 0px;
+    border: none;
+}
+
+
+    .teste::before {
+        width: 65px;
+        height: 65px;
+        background-color: orange;
+        position: absolute;
+        content: "";
+        z-index: -1;
+        transition: 0.3s;
+        animation: botao-borda 10s linear infinite;
+        right: 90px;
+        bottom: 474px;
+        border-radius: inherit;
+    }
+
+.teste:hover::before {
+    transform: scale(1.15);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+}
+
+@keyframes botao-borda {
+    50% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+F
 /*/*/
-
-
 .main-container .nova_historia .opcoes .opcao {
     display: flex;
     flex-direction: row;
 }
 
+
+
+::-webkit-scrollbar {
+    width: 9px;
+    height: 10px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    /*   background-color: rgba(92, 82, 127, 0.8); */
+    background: linear-gradient(130deg, rgba(92,82,127,1) 0%, rgba(38,28,44,1) 100%);
+    border-radius: 6px;
+}
+
+
+    ::-webkit-scrollbar-thumb:hover {
+        /*  background-color: rgba(92, 82, 127, 1); */
+        background: linear-gradient(130deg, rgba(92,82,127,1) 0%, rgba(38,28,44,1) 100%);
+    }

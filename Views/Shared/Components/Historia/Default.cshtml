@@ -7,10 +7,11 @@
 
     <div class="card_principal">
         <p>
+            
             @ViewBag.Historia
         </p>
-        <form asp-action="PostSpeech" asp-controller="Aventura">
-            <button type="submit"><img class="icone_audio" src="~/imgs/audio.png"></img></button>
+        <form class="icone_audio" asp-action="PostSpeech" asp-controller="Aventura">
+            <button class="teste" type="submit"><img src="~/imgs/audio.png"></img></button>
         </form>
         
     </div>
