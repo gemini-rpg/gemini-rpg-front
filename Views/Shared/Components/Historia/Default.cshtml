@@ -17,6 +17,11 @@
         </p>
         <img class="icone_audio" src="~/imgs/audio.png"/>
     </div>
+        <form id="audioForm" class="icone_audio" asp-action="PostSpeech" asp-controller="Aventura">
+            <button id="startButton" class="teste" type="submit"><img src="~/imgs/audio.png"></button>
+        </form>
+@*         <p id="statusMessage"></p>
+ *@    </div>
 
     <div class="opcoes" id="opcoes-container">
         <h3>Selecione uma opção para continuar:</h3>
@@ -38,6 +43,41 @@
             <input class="main-botao" type="button" name="name" value="Enviar" onclick="ContinuarAventura(event)" />
         </form>
 
+<script>
+    document.getElementById('audioForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Mostrar mensagem de status
+        document.getElementById('statusMessage').textContent = 'Iniciando síntese de fala...';
+
+        // Enviar requisição AJAX para iniciar a síntese de texto
+        fetch('/Aventura/PostSpeech', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao iniciar síntese de fala');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.Status === 'Completed') {
+                    // Atualizar o texto exibido com o texto sintetizado
+                    document.getElementById('historiaText').textContent = data.Text;
+                    document.getElementById('statusMessage').textContent = 'Síntese de fala concluída';
+                } else {
+                    document.getElementById('statusMessage').textContent = 'Erro na síntese de fala: ' + data.Reason;
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao processar requisição:', error);
+                document.getElementById('statusMessage').textContent = 'Erro ao iniciar síntese de fala';
+            });
+    });
     </div>
     <p id="agradecimento" class="hidden">Obrigado por jogar!</p>
 </div>
@@ -79,4 +119,14 @@
             }
         });
     }
+</script>
+    // Manipular a seleção da opção pelo usuário
+    document.querySelectorAll('input[name="opcao"]').forEach(radio => {
+        radio.addEventListener('change', function () {
+            if (this.checked) {
+                // Aqui você pode fazer algo com a opção selecionada
+                console.log('Opção selecionada:', this.value);
+            }
+        });
+    });
 </script>

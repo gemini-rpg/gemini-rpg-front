@@ -8,8 +8,13 @@
 
 <section class="main-container " id="container">
 
+    <audio autoplay>
+        <source src="~/audio/rpg-music.mp3" type="audio/mp3">
+    </audio>
+
     <h1 class="titulo">Pagina para criação de personagem</h1>
 
+    
     <h2>Crie seu personagem</h2>
 
     <a href="/Home" class="seta_voltar"><img src="~/imgs/seta-voltar.png" alt="Voltar"></a>
@@ -57,6 +62,25 @@
         </div>
     </form>
 </section>
+
+@* <script>
+    function iniciarAudio() {
+        var meuAudio = document.getElementById('meuAudio');
+        if (meuAudio) {
+            meuAudio.play();
+        }
+    }
+    debugger
+    // Chama a função para iniciar o áudio quando a página for carregada
+    document.addEventListener('DOMContentLoaded', function () {
+        iniciarAudio();
+    });
+
+    // Chama a função para iniciar o áudio quando a página for recarregada (F5 ou botão de recarregar do navegador)
+    window.addEventListener('load', function () {
+        iniciarAudio();
+    });
+</script> *@
 
 <script>
     function inputSelecionado(valor) {
