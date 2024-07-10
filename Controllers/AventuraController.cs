@@ -14,8 +14,8 @@ namespace AiRpgFrontEnd.Controllers
     {
 
         private readonly Uri apiUri = new("http://127.0.0.1:5000");
-        private static string speechKey = "a46b765bbdcf4bc29363c79159952404";
-        private static string speechRegion = "brazilsouth";
+        private static string speechKey = "SPEECH-KEY";
+        private static string speechRegion = "REGION";
         private readonly HttpClient _client;
         private static readonly SpeechSynthesizer fala = new(SpeechConfig.FromSubscription(speechKey, speechRegion));
         public AventuraController()
@@ -75,9 +75,6 @@ namespace AiRpgFrontEnd.Controllers
         {
             try
             {
-                //string teste = "A nevoa da manha se dissipa lentamente, revelando a trilha tortuosa que se estende por entre as arvores imponentes da Floresta de Aethel. Voce, Gabriel, o mago, sente o cheiro umido da terra e a brisa fresca que acaricia seu rosto. As folhas das arvores, salpicadas de orvalho, refletem a luz fraca do sol nascente, criando um cenario mistico e encantador. Um fio de fumaca, quase imperceptivel, danca no horizonte, a oeste. Voce, com a sua visao agucada de mago, consegue identificar a origem: uma pequena cabana, quase escondida entre as arvores, com uma fumaca fina saindo de sua chamine. A trilha, que antes era clara, se divide em tres caminhos distintos: um que continua pela floresta, outro que se dirige para o rio que corta a mata e o ultimo que leva ate a cabana. --- Escolha uma acao: |1. Seguir o caminho pela floresta.| |2. Explorar o rio.| |3. Investigar a cabana.| ---";
-                //string historia_formatada = FormataHistoria(teste);
-                //List<string> opcoes = FormataOpcoes(teste);
                 string data = JsonConvert.SerializeObject(model);
                 StringContent conteudo = new(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage resposta = await _client.PostAsync(_client.BaseAddress + "/create_session", conteudo);

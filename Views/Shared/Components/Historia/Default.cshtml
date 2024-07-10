@@ -1,4 +1,3 @@
-
 @{
     List<string> opcoes = ViewBag.Opcoes;
     Guid? idSessao = ViewBag.IdSessao;
@@ -43,7 +42,7 @@
     </div>
     <p id="agradecimento" class="hidden">Obrigado por jogar!</p>
 
-<script>
+    <script>
         document.getElementById('audioForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const historiaTexto = $('#paragrafo-historia').text()
@@ -57,7 +56,7 @@
                 url: '/Aventura/PostSpeech',
                 method: "POST",
                 data: { historiaTexto: historiaTexto },
-                success: function (data) { 
+                success: function (data) {
                     if (data.Status === 'Completed') {
                         // Atualizar o texto exibido com o texto sintetizado
                         document.getElementById('paragrafo-historia').textContent = data.Text;
@@ -88,40 +87,40 @@
                 });
         });
 
-    function resetarInputs() {
-        var radioButtons = document.querySelectorAll('input[name="opcao"]');
-        radioButtons.forEach(function (radioButton) {
-            radioButton.checked = false;
-        });
+        function resetarInputs() {
+            var radioButtons = document.querySelectorAll('input[name="opcao"]');
+            radioButtons.forEach(function (radioButton) {
+                radioButton.checked = false;
+            });
 
-    }
-    function ContinuarAventura(event) {
-        event.preventDefault();
-        var primeiraOpcao = document.getElementById("primeira-opcao");
-        var segundaOpcao = document.getElementById("segunda-opcao");
-        var terceiraOpcao = document.getElementById("terceira-opcao");
+        }
+        function ContinuarAventura(event) {
+            event.preventDefault();
+            var primeiraOpcao = document.getElementById("primeira-opcao");
+            var segundaOpcao = document.getElementById("segunda-opcao");
+            var terceiraOpcao = document.getElementById("terceira-opcao");
 
-        const opcaoSelecionada = document.querySelector('input[name="opcao"]:checked').value
-        $.ajax({
-            url: '@Url.Action("ContinuarHistoria", "Aventura")',
-            method: "POST",
-            data: { id: '@idSessao', nome: '@nomePersonagem', escolha: opcaoSelecionada },
-            success: function (res) {
-                if (res[0].indexOf("FIM.") != -1 || res[0] == "") {
+            const opcaoSelecionada = document.querySelector('input[name="opcao"]:checked').value
+            $.ajax({
+                url: '@Url.Action("ContinuarHistoria", "Aventura")',
+                method: "POST",
+                data: { id: '@idSessao', nome: '@nomePersonagem', escolha: opcaoSelecionada },
+                success: function (res) {
+                    if (res[0].indexOf("FIM.") != -1 || res[0] == "") {
+                        document.getElementById("paragrafo-historia").innerHTML = res[0]
+                        document.getElementById("opcoes-container").classList.add("hidden")
+                        document.getElementById("agradecimento").classList.remove("hidden")
+                        return;
+                    }
                     document.getElementById("paragrafo-historia").innerHTML = res[0]
-                    document.getElementById("opcoes-container").classList.add("hidden")
-                    document.getElementById("agradecimento").classList.remove("hidden")
-                    return;
+                    document.getElementById("primeira-opcao").innerHTML = res[1]
+                    document.getElementById("segunda-opcao").innerHTML = res[2]
+                    document.getElementById("terceira-opcao").innerHTML = res[3]
+                    resetarInputs()
+                },
+                error: function (err) {
+                    console.log(err)
                 }
-                document.getElementById("paragrafo-historia").innerHTML = res[0]
-                document.getElementById("primeira-opcao").innerHTML = res[1]
-                document.getElementById("segunda-opcao").innerHTML = res[2]
-                document.getElementById("terceira-opcao").innerHTML = res[3]
-                resetarInputs()
-            },
-            error: function (err) {
-                console.log(err)
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
