@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -31,10 +32,49 @@ namespace AiRpgFrontEnd.Controllers
         }
 
         [HttpPost]
+        public async Task<List<string>> ContinuarHistoria(Guid id, string nome, string escolha)
+        {
+            try
+            {
+                HistoriaViewModel historiaObject = new(id, escolha);
+                string data = JsonConvert.SerializeObject(historiaObject);
+                StringContent conteudo = new(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage resposta = await _client.PostAsync(_client.BaseAddress + "/chat", conteudo);
+                List<string> continuacao = [];
+
+                if (resposta.IsSuccessStatusCode)
+                {
+                    string result = resposta.Content.ReadAsStringAsync().Result;
+                    HistoricoViewModel historia = JsonConvert.DeserializeObject<HistoricoViewModel>(result)!;
+                    var hist = historia.message.Last().message;
+                    continuacao.Add(FormataHistoria(hist));
+                    if (hist.IndexOf("FIM") is not -1)
+                    {
+                        continuacao[0] = continuacao[0] + " FIM.";
+                        return continuacao;
+
+                    }
+                    List<string> opcoes = FormataOpcoes(hist);
+                    foreach (string opcao in opcoes)
+                        continuacao.Add(opcao);
+                    return continuacao;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["MensagemErro"] = $"Erro";
+            }
+            return [""];
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CriarHistoria(PersonagemViewModel model)
         {
             try
             {
+                //string teste = "A nevoa da manha se dissipa lentamente, revelando a trilha tortuosa que se estende por entre as arvores imponentes da Floresta de Aethel. Voce, Gabriel, o mago, sente o cheiro umido da terra e a brisa fresca que acaricia seu rosto. As folhas das arvores, salpicadas de orvalho, refletem a luz fraca do sol nascente, criando um cenario mistico e encantador. Um fio de fumaca, quase imperceptivel, danca no horizonte, a oeste. Voce, com a sua visao agucada de mago, consegue identificar a origem: uma pequena cabana, quase escondida entre as arvores, com uma fumaca fina saindo de sua chamine. A trilha, que antes era clara, se divide em tres caminhos distintos: um que continua pela floresta, outro que se dirige para o rio que corta a mata e o ultimo que leva ate a cabana. --- Escolha uma acao: |1. Seguir o caminho pela floresta.| |2. Explorar o rio.| |3. Investigar a cabana.| ---";
+                //string historia_formatada = FormataHistoria(teste);
+                //List<string> opcoes = FormataOpcoes(teste);
                 string data = JsonConvert.SerializeObject(model);
                 StringContent conteudo = new(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage resposta = await _client.PostAsync(_client.BaseAddress + "/create_session", conteudo);
@@ -42,7 +82,11 @@ namespace AiRpgFrontEnd.Controllers
                 {
                     string result = resposta.Content.ReadAsStringAsync().Result;
                     HistoriaViewModel historia = JsonConvert.DeserializeObject<HistoriaViewModel>(result)!;
-                    ViewBag.Historia = historia.Historia;
+
+                    var hist = historia.message;
+                    ViewBag.Historia = FormataHistoria(hist);
+                    ViewBag.Opcoes = FormataOpcoes(hist);
+                    ViewBag.IdSessao = historia.chat_id;
                     ViewBag.Nome = model.nome;
                     return View("Index");
                 }
@@ -52,6 +96,27 @@ namespace AiRpgFrontEnd.Controllers
                 TempData["MensagemErro"] = $"Erro";
             }
             return View("Index");
+        }
+
+
+
+        private static List<string> FormataOpcoes(string historia)
+        {
+            string opcoes = historia.Split("---")[1];
+            string[] opcao = opcoes.Split("|");
+            List<string> opcoes_formatadas = [];
+            for (int i = 0; i < opcao.Length; i++)
+            {
+                //pula as strings inuteis para o sistema
+                if (i == 1 || i == 3 || i == 5)
+                    opcoes_formatadas.Add(opcao[i]);
+            }
+            return opcoes_formatadas;
+        }
+
+        public static string FormataHistoria(string historia)
+        {
+            return historia.Split("---")[0];
         }
     }
 }

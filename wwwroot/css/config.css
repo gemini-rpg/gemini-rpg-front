@@ -13,3 +13,7 @@
     --texto: 'Megrim', sans-serif;
     --vollkorn: 'Vollkorn SC', serif;
 }
+
+.hidden {
+    display: none !important;
+}

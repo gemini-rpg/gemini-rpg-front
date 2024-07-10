@@ -1,38 +1,82 @@
 
+@{
+    List<string> opcoes = ViewBag.Opcoes;
+    Guid? idSessao = ViewBag.IdSessao;
+    string nomePersonagem = ViewBag.Nome;
+}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="~/css/aventura.css" rel="stylesheet" type="text/css" />
 
 
-<div class="nova_historia">
+<div class="nova_historia" id="chat">
 
     <div class="card_principal">
-        <p>
+        <p id="paragrafo-historia">
             @ViewBag.Historia
         </p>
-        <img class="icone_audio" src="~/imgs/audio.png"></img>
+        <img class="icone_audio" src="~/imgs/audio.png"/>
     </div>
 
-    <div class="opcoes">
+    <div class="opcoes" id="opcoes-container">
         <h3>Selecione uma opção para continuar:</h3>
-
-        <div class="opcoes">
-
+        <form class="opcoes" method="POST">
             <div class="opcao">
-                <input type="radio" id="accent">
-                <label>Seguir o caminho pela floresta</label>
+                <input type="radio" class="accent" name="opcao" value="@opcoes[0]">
+                <label id="primeira-opcao">@opcoes[0]</label>
             </div>
 
             <div class="opcao">
-                <input type="radio" id="accent">
-                <label>Explorar o rio</label>
+                <input type="radio" class="accent" name="opcao" value="@opcoes[1]">
+                <label id="segunda-opcao">@opcoes[1]</label>
             </div>
 
             <div class="opcao">
-                <input type="radio" id="accent">
-                <label>Investigar a cabana</label>
+                <input type="radio" class="accent" name="opcao" value="@opcoes[2]">
+                <label id="terceira-opcao">@opcoes[2]</label>
             </div>
-
-        </div>
+            <input class="main-botao" type="button" name="name" value="Enviar" onclick="ContinuarAventura(event)" />
+        </form>
 
     </div>
+    <p id="agradecimento" class="hidden">Obrigado por jogar!</p>
 </div>
+
+<script>
+    function resetarInputs() {
+        var radioButtons = document.querySelectorAll('input[name="opcao"]');
+        radioButtons.forEach(function (radioButton) {
+            radioButton.checked = false;
+        });
+
+    }
+    function ContinuarAventura(event) {
+        event.preventDefault();
+        var primeiraOpcao = document.getElementById("primeira-opcao");
+        var segundaOpcao = document.getElementById("segunda-opcao");
+        var terceiraOpcao = document.getElementById("terceira-opcao");
+
+        const opcaoSelecionada = document.querySelector('input[name="opcao"]:checked').value
+        $.ajax({
+            url: '@Url.Action("ContinuarHistoria", "Aventura")',
+            method: "POST",
+            data: { id: '@idSessao', nome: '@nomePersonagem', escolha: opcaoSelecionada },
+            success: function (res) {
+                if (res[0].indexOf("FIM.") != -1 || res[0] == "") {
+                    document.getElementById("paragrafo-historia").innerHTML = res[0]
+                    document.getElementById("opcoes-container").classList.add("hidden")
+                    document.getElementById("agradecimento").classList.remove("hidden")
+                    return;
+                }
+                document.getElementById("paragrafo-historia").innerHTML = res[0]
+                document.getElementById("primeira-opcao").innerHTML = res[1]
+                document.getElementById("segunda-opcao").innerHTML = res[2]
+                document.getElementById("terceira-opcao").innerHTML = res[3]
+                resetarInputs()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    }
+</script>

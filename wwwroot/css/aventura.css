@@ -93,7 +93,7 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-#accent {
+.accent {
     accent-color: rgb(92,82,127);
 }
 
@@ -103,4 +103,20 @@ input[type="radio"] {
 .main-container .nova_historia .opcoes .opcao {
     display: flex;
     flex-direction: row;
+}
+
+
+.main-botao {
+    height: 60px;
+    width: 350px;
+    background: var(--roxo-escuro);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--runa-font);
+    font-size: 32px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
 }
