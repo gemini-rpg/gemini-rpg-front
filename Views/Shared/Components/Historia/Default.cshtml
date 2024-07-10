@@ -42,6 +42,8 @@
             </div>
             <input class="main-botao" type="button" name="name" value="Enviar" onclick="ContinuarAventura(event)" />
         </form>
+    </div>
+    <p id="agradecimento" class="hidden">Obrigado por jogar!</p>
 
 <script>
     document.getElementById('audioForm').addEventListener('submit', function (event) {
@@ -78,11 +80,7 @@
                 document.getElementById('statusMessage').textContent = 'Erro ao iniciar síntese de fala';
             });
     });
-    </div>
-    <p id="agradecimento" class="hidden">Obrigado por jogar!</p>
-</div>
 
-<script>
     function resetarInputs() {
         var radioButtons = document.querySelectorAll('input[name="opcao"]');
         radioButtons.forEach(function (radioButton) {
@@ -119,7 +117,6 @@
             }
         });
     }
-</script>
     // Manipular a seleção da opção pelo usuário
     document.querySelectorAll('input[name="opcao"]').forEach(radio => {
         radio.addEventListener('change', function () {
