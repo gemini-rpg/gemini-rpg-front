@@ -2,6 +2,7 @@
 @{
     List<string> opcoes = ViewBag.Opcoes;
     Guid? idSessao = ViewBag.IdSessao;
+    string historia_texto = ViewBag.Historia;
     string nomePersonagem = ViewBag.Nome;
 }
 
@@ -15,13 +16,10 @@
         <p id="paragrafo-historia">
             @ViewBag.Historia
         </p>
-        <img class="icone_audio" src="~/imgs/audio.png"/>
-    </div>
-        <form id="audioForm" class="icone_audio" asp-action="PostSpeech" asp-controller="Aventura">
+        <form id="audioForm" class="icone_audio">
             <button id="startButton" class="teste" type="submit"><img src="~/imgs/audio.png"></button>
         </form>
-@*         <p id="statusMessage"></p>
- *@    </div>
+    </div>
 
     <div class="opcoes" id="opcoes-container">
         <h3>Selecione uma opção para continuar:</h3>
@@ -46,40 +44,49 @@
     <p id="agradecimento" class="hidden">Obrigado por jogar!</p>
 
 <script>
-    document.getElementById('audioForm').addEventListener('submit', function (event) {
-        event.preventDefault();
+        document.getElementById('audioForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const historiaTexto = $('#paragrafo-historia').text()
+            // Mostrar mensagem de status
+            console.log('Síntese de fala concluída');
 
-        // Mostrar mensagem de status
-        document.getElementById('statusMessage').textContent = 'Iniciando síntese de fala...';
+            // Enviar requisição AJAX para iniciar a síntese de texto
+            debugger
 
-        // Enviar requisição AJAX para iniciar a síntese de texto
-        fetch('/Aventura/PostSpeech', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({})
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao iniciar síntese de fala');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.Status === 'Completed') {
-                    // Atualizar o texto exibido com o texto sintetizado
-                    document.getElementById('historiaText').textContent = data.Text;
-                    document.getElementById('statusMessage').textContent = 'Síntese de fala concluída';
-                } else {
-                    document.getElementById('statusMessage').textContent = 'Erro na síntese de fala: ' + data.Reason;
+            $.ajax({
+                url: '/Aventura/PostSpeech',
+                method: "POST",
+                data: { historiaTexto: historiaTexto },
+                success: function (data) { 
+                    if (data.Status === 'Completed') {
+                        // Atualizar o texto exibido com o texto sintetizado
+                        document.getElementById('paragrafo-historia').textContent = data.Text;
+                        console.log('Síntese de fala concluída');
+                    }
                 }
             })
-            .catch(error => {
-                console.error('Erro ao processar requisição:', error);
-                document.getElementById('statusMessage').textContent = 'Erro ao iniciar síntese de fala';
-            });
-    });
+            fetch('/Aventura/PostSpeech', {
+                method: 'POST',
+                body: historiaTexto
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao iniciar síntese de fala');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.Status === 'Completed') {
+                        // Atualizar o texto exibido com o texto sintetizado
+                        document.getElementById('paragrafo-historia').textContent = data.Text;
+                        console.log('Síntese de fala concluída');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao processar requisição:', error);
+                    console.error('Erro na síntese de fala: ' + data.Reason);
+                });
+        });
 
     function resetarInputs() {
         var radioButtons = document.querySelectorAll('input[name="opcao"]');
@@ -117,13 +124,4 @@
             }
         });
     }
-    // Manipular a seleção da opção pelo usuário
-    document.querySelectorAll('input[name="opcao"]').forEach(radio => {
-        radio.addEventListener('change', function () {
-            if (this.checked) {
-                // Aqui você pode fazer algo com a opção selecionada
-                console.log('Opção selecionada:', this.value);
-            }
-        });
-    });
 </script>
